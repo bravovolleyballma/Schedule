@@ -34,12 +34,36 @@
             margin-bottom: 10px;
         }
 
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .mode-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .mode-indicator.admin {
+            background: #ff6b6b;
+        }
+
+        .mode-indicator.viewer {
+            background: #51cf66;
+        }
+
         /* TABS */
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .tab-btn {
@@ -64,6 +88,11 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .tab-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .tab-content {
             display: none;
             animation: fadeIn 0.3s;
@@ -78,7 +107,7 @@
             to { opacity: 1; }
         }
 
-        /* INPUT FORM */
+        /* FORM SECTION */
         .form-section {
             background: white;
             border-radius: 15px;
@@ -100,6 +129,7 @@
 
         input[type="text"],
         input[type="number"],
+        input[type="password"],
         select,
         textarea {
             width: 100%;
@@ -112,17 +142,12 @@
 
         input[type="text"]:focus,
         input[type="number"]:focus,
+        input[type="password"]:focus,
         select:focus,
         textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-            font-family: monospace;
         }
 
         .teams-input-group {
@@ -224,7 +249,6 @@
             padding-bottom: 15px;
         }
 
-        /* ROUNDS */
         .round-section {
             margin-bottom: 40px;
         }
@@ -256,6 +280,7 @@
             background: #f0f4ff;
             border-radius: 8px;
             border-left: 4px solid #667eea;
+            flex-wrap: wrap;
         }
 
         .round-info-item {
@@ -274,7 +299,7 @@
             font-weight: 700;
         }
 
-        /* STANDINGS */
+        /* STANDINGS TABLE */
         .standings-table {
             width: 100%;
             margin-bottom: 30px;
@@ -319,7 +344,7 @@
         .rank-2 { background: #c0c0c0; color: #333; }
         .rank-3 { background: #cd7f32; }
 
-        /* GROUP DISPLAY */
+        /* GROUPS */
         .groups-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -387,93 +412,6 @@
 
         .group-table tbody tr:hover {
             background: #f5f7ff;
-        }
-
-        /* KNOCKOUT BRACKET */
-        .bracket-container {
-            overflow-x: auto;
-            margin: 30px 0;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .bracket {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            min-width: min-content;
-            align-items: flex-start;
-        }
-
-        .bracket-round {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            min-width: 180px;
-        }
-
-        .bracket-round-label {
-            text-align: center;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 0.9em;
-            text-transform: uppercase;
-        }
-
-        .bracket-match {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 8px 0;
-            transition: all 0.3s;
-        }
-
-        .bracket-match:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .bracket-match.complete {
-            background: #f0f9ff;
-            border-color: #667eea;
-        }
-
-        .bracket-match.bye {
-            background: #f5f5f5;
-            opacity: 0.6;
-        }
-
-        .bracket-match-team {
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        .bracket-match-team:last-child {
-            border-bottom: none;
-        }
-
-        .bracket-match-team.winner {
-            background: #e8f5e9;
-            color: #2e7d32;
-            font-weight: 700;
-        }
-
-        .bracket-score {
-            background: #667eea;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.85em;
         }
 
         /* MATCHES */
@@ -587,79 +525,7 @@
             opacity: 0.5;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .groups-container {
-                grid-template-columns: 1fr;
-            }
-
-            .standings-table {
-                font-size: 0.9em;
-            }
-
-            .standings-table th,
-            .standings-table td {
-                padding: 10px 8px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .teams-input-group {
-                grid-template-columns: 1fr;
-            }
-
-            .bracket-container {
-                overflow-x: auto;
-                padding: 10px;
-            }
-
-            .bracket-round {
-                min-width: 140px;
-            }
-        }
-
-        /* MESSAGES */
-        .message {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            animation: slideIn 0.3s;
-        }
-
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* STATS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -686,10 +552,50 @@
             opacity: 0.9;
         }
 
+        /* MESSAGES */
+        .message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            animation: slideIn 0.3s;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EXPORT CONTROLS */
         .export-controls {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .btn-export {
@@ -707,31 +613,91 @@
             background: #5568d3;
         }
 
-        .view-toggle {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .view-btn {
-            padding: 10px 20px;
-            background: #e0e0e0;
-            color: #333;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
+        .sync-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #e8f5e9;
+            border-radius: 20px;
+            font-size: 0.9em;
             font-weight: 600;
-            transition: all 0.3s;
+            color: #2e7d32;
         }
 
-        .view-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+        .sync-indicator.syncing {
+            background: #fff3e0;
+            color: #e65100;
         }
 
-        .view-btn:hover {
-            border-color: #667eea;
+        .sync-indicator.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2e7d32;
+            animation: pulse 2s infinite;
+        }
+
+        .sync-indicator.syncing .sync-dot {
+            background: #e65100;
+        }
+
+        .sync-indicator.error .sync-dot {
+            background: #c62828;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .round-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -739,17 +705,47 @@
     <div class="container">
         <div class="header">
             <h1>⚽ Tournament Tracker</h1>
-            <p>Create, manage, and track tournament results with live standings</p>
+            <p>Real-time tournament management with Google Sheets integration</p>
+            <div class="mode-indicator" id="modeIndicator">Loading...</div>
+            <div class="sync-indicator" id="syncIndicator">
+                <span class="sync-dot"></span>
+                <span id="syncStatus">Connecting...</span>
+            </div>
         </div>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('setup')">Setup</button>
-            <button class="tab-btn" onclick="switchTab('tournament')">Tournament</button>
-            <button class="tab-btn" onclick="switchTab('standings')">Standings</button>
+            <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+            <button class="tab-btn" id="setupTab" onclick="switchTab('setup')" disabled>Setup</button>
+            <button class="tab-btn" id="tournamentTab" onclick="switchTab('tournament')" disabled>Tournament</button>
+            <button class="tab-btn" id="standingsTab" onclick="switchTab('standings')" disabled>Standings</button>
         </div>
 
-        <!-- SETUP TAB -->
-        <div id="setup" class="tab-content active">
+        <!-- LOGIN TAB -->
+        <div id="login" class="tab-content active">
+            <div class="form-section">
+                <h2 style="margin-bottom: 20px; color: #333;">Tournament Access</h2>
+                <p style="margin-bottom: 20px; color: #666;">Choose your role to continue</p>
+
+                <div class="button-group" style="margin-top: 30px;">
+                    <button class="btn btn-primary" onclick="loginAsAdmin()">🔐 Admin Login</button>
+                    <button class="btn btn-secondary" onclick="loginAsViewer()">👁️ View Only (Live Scores)</button>
+                </div>
+
+                <div id="adminLoginForm" style="display: none; margin-top: 30px; padding-top: 30px; border-top: 2px solid #e0e0e0;">
+                    <div class="form-group">
+                        <label>Admin Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter admin password" onkeypress="if(event.key==='Enter') completeAdminLogin()">
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="completeAdminLogin()">Login</button>
+                        <button class="btn btn-secondary" onclick="cancelAdminLogin()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETUP TAB (ADMIN ONLY) -->
+        <div id="setup" class="tab-content">
             <div class="form-section">
                 <h2 style="margin-bottom: 20px; color: #333;">Tournament Setup</h2>
 
@@ -790,7 +786,7 @@
         <div id="tournament" class="tab-content">
             <div id="tournamentContent" class="empty-state">
                 <div class="empty-state-icon">🏆</div>
-                <p>Create a tournament to see matches and standings</p>
+                <p>Tournament will appear here</p>
             </div>
         </div>
 
@@ -798,13 +794,35 @@
         <div id="standings" class="tab-content">
             <div id="standingsContent" class="empty-state">
                 <div class="empty-state-icon">📊</div>
-                <p>Tournament standings will appear here</p>
+                <p>Standings will appear here</p>
             </div>
         </div>
     </div>
 
     <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_rrVI2ticbTWZ-KQZfH0URXshb63XcO23kRaZ3XU_Mo23-ecu6okFMY0j3MjrpRL2mw/exec';
+        const ADMIN_PASSWORD = 'admin123'; // Change this to a secure password
+
+        let currentMode = null; // 'admin' or 'viewer'
         let tournament = null;
+        let syncTimer = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkExistingSession();
+            startAutoSync();
+        });
+
+        function checkExistingSession() {
+            const savedMode = localStorage.getItem('userMode');
+            if (savedMode) {
+                if (savedMode === 'admin') {
+                    loginAsAdmin();
+                } else {
+                    loginAsViewer();
+                }
+            }
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -812,6 +830,65 @@
             
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
+        }
+
+        function loginAsAdmin() {
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('adminPassword').focus();
+        }
+
+        function completeAdminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                currentMode = 'admin';
+                localStorage.setItem('userMode', 'admin');
+                updateModeIndicator();
+                enableAdminTabs();
+                loadTournamentData();
+                showMessage('Admin logged in successfully!', 'success');
+                switchTab('setup');
+            } else {
+                showMessage('Invalid password!', 'error');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        function cancelAdminLogin() {
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function loginAsViewer() {
+            currentMode = 'viewer';
+            localStorage.setItem('userMode', 'viewer');
+            updateModeIndicator();
+            disableAdminTabs();
+            loadTournamentData();
+            showMessage('Connected as viewer - Live scores updating...', 'info');
+            switchTab('standings');
+        }
+
+        function updateModeIndicator() {
+            const indicator = document.getElementById('modeIndicator');
+            if (currentMode === 'admin') {
+                indicator.className = 'mode-indicator admin';
+                indicator.textContent = '🔐 ADMIN MODE';
+            } else if (currentMode === 'viewer') {
+                indicator.className = 'mode-indicator viewer';
+                indicator.textContent = '👁️ VIEWER MODE (Live)';
+            }
+        }
+
+        function enableAdminTabs() {
+            document.getElementById('setupTab').disabled = false;
+            document.getElementById('tournamentTab').disabled = false;
+            document.getElementById('standingsTab').disabled = false;
+        }
+
+        function disableAdminTabs() {
+            document.getElementById('setupTab').disabled = true;
+            document.getElementById('tournamentTab').disabled = false;
+            document.getElementById('standingsTab').disabled = false;
         }
 
         function updateRoundFormats() {
@@ -834,7 +911,7 @@
             }
         }
 
-        document.getElementById('numRounds').addEventListener('change', updateRoundFormats);
+        document.getElementById('numRounds')?.addEventListener('change', updateRoundFormats);
 
         function addTeamInput() {
             const container = document.getElementById('teamsContainer');
@@ -881,9 +958,10 @@
             }
 
             tournament = new Tournament(name, teams, formats, numGroups);
+            saveTournamentToSheets();
             displayTournament();
             switchTab('tournament');
-            showMessage('Tournament created successfully!', 'success');
+            showMessage('Tournament created and saved to Google Sheets!', 'success');
         }
 
         class Tournament {
@@ -895,7 +973,6 @@
                 this.rounds = [];
                 this.standings = {};
                 
-                // Initialize standings
                 teams.forEach(team => {
                     this.standings[team] = {
                         wins: 0,
@@ -931,12 +1008,10 @@
 
                     this.rounds.push(roundData);
 
-                    // For next round, keep top teams based on standings
                     if (roundNum < this.formats.length - 1) {
                         const sorted = currentTeams.sort((a, b) => 
                             this.standings[b].points - this.standings[a].points
                         );
-                        // Keep top 50% or at least half rounded up
                         const keepCount = Math.ceil(sorted.length / 2);
                         currentTeams = sorted.slice(0, keepCount);
                     }
@@ -1009,21 +1084,7 @@
                             matchNum++;
                         }
                     }
-                } else if (format === 'single-elimination') {
-                    const paired = this.pairTeams(teams);
-                    paired.forEach(pair => {
-                        matches.push({
-                            id: `${roundNum}-${matchNum}`,
-                            number: matchNum,
-                            team1: pair[0],
-                            team2: pair[1],
-                            score1: null,
-                            score2: null,
-                            winner: null
-                        });
-                        matchNum++;
-                    });
-                } else if (format === 'double-elimination' || format === 'swiss-system') {
+                } else if (format === 'single-elimination' || format === 'double-elimination' || format === 'swiss-system') {
                     const paired = this.pairTeams(teams);
                     paired.forEach(pair => {
                         matches.push({
@@ -1060,7 +1121,6 @@
                 match.score1 = parseInt(score1) || 0;
                 match.score2 = parseInt(score2) || 0;
 
-                // Determine winner
                 if (match.score1 > match.score2) {
                     match.winner = match.team1;
                 } else if (match.score2 > match.score1) {
@@ -1069,7 +1129,6 @@
                     match.winner = 'tie';
                 }
 
-                // Update standings
                 const team1Stats = this.standings[match.team1];
                 const team2Stats = this.standings[match.team2];
 
@@ -1130,7 +1189,7 @@
 
                     <div class="export-controls">
                         <button class="btn-export" onclick="exportTournament()">📥 Export as JSON</button>
-                        <button class="btn-export" onclick="printTournament()">🖨️ Print</button>
+                        <button class="btn-export" onclick="window.print()">🖨️ Print</button>
                     </div>
             `;
 
@@ -1156,24 +1215,16 @@
                         </div>
                 `;
 
-                // Display groups if they exist
                 if (round.groups.length > 0) {
                     html += displayGroupStage(round);
-                } else if (round.format === 'single-elimination' || round.format === 'double-elimination') {
-                    html += displayKnockoutBracket(round);
                 } else {
                     html += displayMatches(round);
                 }
 
-                html += `
-                    </div>
-                `;
+                html += `</div>`;
             });
 
-            html += `
-                </div>
-            `;
-
+            html += `</div>`;
             content.innerHTML = html;
         }
 
@@ -1183,7 +1234,6 @@
             round.groups.forEach((group, groupIdx) => {
                 const groupStandings = group.teams
                     .map(team => {
-                        const stats = tournament.standings[team];
                         const groupMatches = group.matches.filter(m => 
                             (m.team1 === team || m.team2 === team) && m.winner !== null
                         );
@@ -1258,7 +1308,7 @@
                     const team2Class = match.winner === match.team2 ? 'winner' : '';
 
                     html += `
-                        <div class="match-card" style="padding: 12px;">
+                        <div class="match-card" style="padding: 12px; margin-bottom: 10px;">
                             <div class="match-team team1 ${team1Class}">
                                 <span>${match.team1}</span>
                                 ${match.score1 !== null ? `<span class="match-score">${match.score1}</span>` : ''}
@@ -1268,11 +1318,13 @@
                                 <span>${match.team2}</span>
                                 ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
                             </div>
-                            <div class="score-input-group" style="margin-top: 10px;">
-                                <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
-                                <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
-                                <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
-                            </div>
+                            ${currentMode === 'admin' ? `
+                                <div class="score-input-group" style="margin-top: 10px;">
+                                    <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
+                                    <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
+                                    <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
+                                </div>
+                            ` : ''}
                         </div>
                     `;
                 });
@@ -1284,73 +1336,6 @@
             });
 
             html += `</div>`;
-            return html;
-        }
-
-        function displayKnockoutBracket(round) {
-            let html = `
-                <div class="bracket-container">
-                    <div class="bracket">
-                        <div class="bracket-round">
-                            <div class="bracket-round-label">Round of ${round.matches.length * 2}</div>
-            `;
-
-            round.matches.forEach((match, idx) => {
-                const isComplete = match.winner !== null;
-                const isBye = match.team2 === '(BYE)' || match.team1 === '(BYE)';
-                
-                html += `
-                    <div class="bracket-match ${isComplete ? 'complete' : ''} ${isBye ? 'bye' : ''}">
-                        <div class="bracket-match-team ${match.winner === match.team1 ? 'winner' : ''}">
-                            <span>${match.team1}</span>
-                            ${match.score1 !== null ? `<span class="bracket-score">${match.score1}</span>` : ''}
-                        </div>
-                        <div class="bracket-match-team ${match.winner === match.team2 ? 'winner' : ''}">
-                            <span>${match.team2}</span>
-                            ${match.score2 !== null ? `<span class="bracket-score">${match.score2}</span>` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matches-grid">
-            `;
-
-            round.matches.forEach(match => {
-                const isComplete = match.winner !== null;
-                const team1Class = match.winner === match.team1 ? 'winner' : '';
-                const team2Class = match.winner === match.team2 ? 'winner' : '';
-
-                html += `
-                    <div class="match-card ${isComplete ? 'complete' : ''}">
-                        <div class="match-number">Match ${match.number}</div>
-                        <div class="match-team team1 ${team1Class}">
-                            <span>${match.team1}</span>
-                            ${match.score1 !== null ? `<span class="match-score">${match.score1}</span>` : ''}
-                        </div>
-                        <div class="match-vs">vs</div>
-                        <div class="match-team ${team2Class}">
-                            <span>${match.team2}</span>
-                            ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
-                        </div>
-                        <div class="score-input-group">
-                            <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
-                            <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
-                            <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += `
-                </div>
-            `;
-
             return html;
         }
 
@@ -1374,11 +1359,13 @@
                             <span>${match.team2}</span>
                             ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
                         </div>
-                        <div class="score-input-group">
-                            <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
-                            <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
-                            <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
-                        </div>
+                        ${currentMode === 'admin' ? `
+                            <div class="score-input-group">
+                                <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
+                                <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
+                                <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
@@ -1445,6 +1432,11 @@
         }
 
         function setMatchScore(roundNum, matchId) {
+            if (currentMode !== 'admin') {
+                showMessage('Only admins can update scores!', 'error');
+                return;
+            }
+
             const score1Input = document.getElementById(`score1_${matchId}`);
             const score2Input = document.getElementById(`score2_${matchId}`);
 
@@ -1457,9 +1449,69 @@
             }
 
             tournament.setScore(roundNum, matchId, score1, score2);
+            saveTournamentToSheets();
             displayTournament();
             displayStandings();
             showMessage(`Match scores updated!`, 'success');
+        }
+
+        function saveTournamentToSheets() {
+            if (!tournament || currentMode !== 'admin') return;
+
+            const data = {
+                action: 'saveTournament',
+                tournamentData: {
+                    name: tournament.name,
+                    teams: tournament.teams,
+                    formats: tournament.formats,
+                    numGroups: tournament.numGroups,
+                    rounds: tournament.rounds,
+                    standings: tournament.standings
+                }
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).catch(err => console.log('Save to Sheets:', err));
+        }
+
+        function loadTournamentData() {
+            updateSyncStatus('Syncing...', 'syncing');
+            
+            fetch(GOOGLE_SCRIPT_URL + '?action=getTournament')
+                .then(r => r.json())
+                .then(data => {
+                    if (data && data.rounds) {
+                        // Reconstruct tournament from saved data
+                        tournament = new Tournament(data.name, data.teams, data.formats, data.numGroups);
+                        tournament.rounds = data.rounds;
+                        tournament.standings = data.standings;
+                        
+                        displayTournament();
+                        displayStandings();
+                        updateSyncStatus('Synced', 'synced');
+                    } else {
+                        updateSyncStatus('No tournament found', 'normal');
+                    }
+                })
+                .catch(err => {
+                    console.log('Load error:', err);
+                    updateSyncStatus('Sync failed', 'error');
+                });
+        }
+
+        function startAutoSync() {
+            loadTournamentData();
+            syncTimer = setInterval(loadTournamentData, 3000); // Sync every 3 seconds
+        }
+
+        function updateSyncStatus(text, status = 'normal') {
+            const indicator = document.getElementById('syncIndicator');
+            const statusText = document.getElementById('syncStatus');
+            
+            statusText.textContent = text;
+            indicator.className = 'sync-indicator ' + (status !== 'normal' ? status : '');
         }
 
         function exportTournament() {
@@ -1482,21 +1534,17 @@
             link.click();
         }
 
-        function printTournament() {
-            window.print();
-        }
-
         function showMessage(message, type) {
             const div = document.createElement('div');
             div.className = `message ${type}`;
             div.textContent = message;
             document.querySelector('.header').after(div);
-            setTimeout(() => div.remove(), 3000);
+            setTimeout(() => div.remove(), 4000);
         }
 
         // Initialize
-        updateRoundFormats();
         resetForm();
+        updateRoundFormats();
     </script>
 </body>
 </html>
