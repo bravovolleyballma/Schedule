@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Tracker with Standings</title>
+    <title>Tournament Tracker</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -248,6 +248,32 @@
             border-radius: 2px;
         }
 
+        .round-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .round-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .round-info-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .round-info-value {
+            color: #333;
+            font-weight: 700;
+        }
+
         /* STANDINGS */
         .standings-table {
             width: 100%;
@@ -292,6 +318,163 @@
         .rank-1 { background: #ffd700; color: #333; }
         .rank-2 { background: #c0c0c0; color: #333; }
         .rank-3 { background: #cd7f32; }
+
+        /* GROUP DISPLAY */
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .group-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .group-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .group-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .group-badge {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .group-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .group-table thead {
+            background: #e8eaf6;
+        }
+
+        .group-table th {
+            padding: 10px;
+            text-align: left;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .group-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        .group-table tbody tr:hover {
+            background: #f5f7ff;
+        }
+
+        /* KNOCKOUT BRACKET */
+        .bracket-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .bracket {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            min-width: min-content;
+            align-items: flex-start;
+        }
+
+        .bracket-round {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 180px;
+        }
+
+        .bracket-round-label {
+            text-align: center;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .bracket-match {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 8px 0;
+            transition: all 0.3s;
+        }
+
+        .bracket-match:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .bracket-match.complete {
+            background: #f0f9ff;
+            border-color: #667eea;
+        }
+
+        .bracket-match.bye {
+            background: #f5f5f5;
+            opacity: 0.6;
+        }
+
+        .bracket-match-team {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .bracket-match-team:last-child {
+            border-bottom: none;
+        }
+
+        .bracket-match-team.winner {
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 700;
+        }
+
+        .bracket-score {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85em;
+        }
 
         /* MATCHES */
         .matches-grid {
@@ -414,6 +597,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+
             .standings-table {
                 font-size: 0.9em;
             }
@@ -429,6 +616,15 @@
 
             .teams-input-group {
                 grid-template-columns: 1fr;
+            }
+
+            .bracket-container {
+                overflow-x: auto;
+                padding: 10px;
+            }
+
+            .bracket-round {
+                min-width: 140px;
             }
         }
 
@@ -490,52 +686,6 @@
             opacity: 0.9;
         }
 
-        .bracket-container {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-
-        .bracket {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            min-width: min-content;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .bracket-round {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            min-width: 150px;
-        }
-
-        .bracket-match {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 0.9em;
-        }
-
-        .bracket-match-team {
-            padding: 5px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .bracket-match-team:last-child {
-            border-bottom: none;
-        }
-
-        .bracket-match.complete {
-            background: #f0f9ff;
-            border-color: #667eea;
-        }
-
         .export-controls {
             display: flex;
             gap: 10px;
@@ -555,6 +705,33 @@
 
         .btn-export:hover {
             background: #5568d3;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            color: #333;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .view-btn:hover {
+            border-color: #667eea;
         }
     </style>
 </head>
@@ -589,6 +766,11 @@
                 <div class="form-group">
                     <label>Format for Each Round</label>
                     <div id="roundFormats"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of Groups (for Pool Play)</label>
+                    <input type="number" id="numGroups" min="1" max="8" value="1">
                 </div>
 
                 <hr style="margin: 30px 0; border: 1px solid #e0e0e0;">
@@ -668,6 +850,7 @@
         function resetForm() {
             document.getElementById('tournamentName').value = 'Regional Championship';
             document.getElementById('numRounds').value = 2;
+            document.getElementById('numGroups').value = 1;
             document.getElementById('teamsContainer').innerHTML = '';
             for (let i = 0; i < 4; i++) addTeamInput();
             updateRoundFormats();
@@ -676,6 +859,7 @@
         function createTournament() {
             const name = document.getElementById('tournamentName').value.trim();
             const numRounds = parseInt(document.getElementById('numRounds').value);
+            const numGroups = parseInt(document.getElementById('numGroups').value);
             const teams = Array.from(document.querySelectorAll('.team-input'))
                 .map(input => input.value.trim())
                 .filter(t => t);
@@ -696,17 +880,18 @@
                 formats.push(format);
             }
 
-            tournament = new Tournament(name, teams, formats);
+            tournament = new Tournament(name, teams, formats, numGroups);
             displayTournament();
             switchTab('tournament');
             showMessage('Tournament created successfully!', 'success');
         }
 
         class Tournament {
-            constructor(name, teams, formats) {
+            constructor(name, teams, formats, numGroups = 1) {
                 this.name = name;
                 this.teams = teams;
                 this.formats = formats;
+                this.numGroups = numGroups;
                 this.rounds = [];
                 this.standings = {};
                 
@@ -716,7 +901,8 @@
                         wins: 0,
                         losses: 0,
                         points: 0,
-                        matches: 0
+                        matches: 0,
+                        group: null
                     };
                 });
 
@@ -728,12 +914,22 @@
 
                 for (let roundNum = 0; roundNum < this.formats.length; roundNum++) {
                     const format = this.formats[roundNum];
-                    const matches = this.generateMatches(currentTeams, format, roundNum + 1);
-                    this.rounds.push({
+                    
+                    let roundData = {
                         number: roundNum + 1,
                         format: format,
-                        matches: matches
-                    });
+                        matches: [],
+                        groups: []
+                    };
+
+                    if (format === 'pool-play' && this.numGroups > 1) {
+                        roundData.groups = this.generateGroupStage(currentTeams, this.numGroups, roundNum + 1);
+                        roundData.matches = this.getMatchesFromGroups(roundData.groups);
+                    } else {
+                        roundData.matches = this.generateMatches(currentTeams, format, roundNum + 1);
+                    }
+
+                    this.rounds.push(roundData);
 
                     // For next round, keep top teams based on standings
                     if (roundNum < this.formats.length - 1) {
@@ -745,6 +941,53 @@
                         currentTeams = sorted.slice(0, keepCount);
                     }
                 }
+            }
+
+            generateGroupStage(teams, numGroups, roundNum) {
+                const groups = [];
+                const teamsPerGroup = Math.ceil(teams.length / numGroups);
+                const shuffled = [...teams].sort(() => Math.random() - 0.5);
+
+                for (let g = 0; g < numGroups; g++) {
+                    const groupTeams = shuffled.slice(g * teamsPerGroup, (g + 1) * teamsPerGroup);
+                    const groupMatches = [];
+                    let matchNum = 1;
+
+                    for (let i = 0; i < groupTeams.length; i++) {
+                        for (let j = i + 1; j < groupTeams.length; j++) {
+                            groupMatches.push({
+                                id: `${roundNum}-G${g + 1}-${matchNum}`,
+                                number: matchNum,
+                                team1: groupTeams[i],
+                                team2: groupTeams[j],
+                                score1: null,
+                                score2: null,
+                                winner: null
+                            });
+                            matchNum++;
+                        }
+                    }
+
+                    groups.push({
+                        name: `Group ${String.fromCharCode(65 + g)}`,
+                        teams: groupTeams,
+                        matches: groupMatches
+                    });
+
+                    groupTeams.forEach(team => {
+                        this.standings[team].group = `Group ${String.fromCharCode(65 + g)}`;
+                    });
+                }
+
+                return groups;
+            }
+
+            getMatchesFromGroups(groups) {
+                const matches = [];
+                groups.forEach(group => {
+                    matches.push(...group.matches);
+                });
+                return matches;
             }
 
             generateMatches(teams, format, roundNum) {
@@ -780,7 +1023,7 @@
                         });
                         matchNum++;
                     });
-                } else if (format === 'swiss-system') {
+                } else if (format === 'double-elimination' || format === 'swiss-system') {
                     const paired = this.pairTeams(teams);
                     paired.forEach(pair => {
                         matches.push({
@@ -808,9 +1051,9 @@
                 return pairs;
             }
 
-            setScore(roundNum, matchNum, score1, score2) {
+            setScore(roundNum, matchId, score1, score2) {
                 const round = this.rounds[roundNum - 1];
-                const match = round.matches[matchNum - 1];
+                const match = round.matches.find(m => m.id === matchId);
 
                 if (!match) return false;
 
@@ -895,17 +1138,127 @@
                 html += `
                     <div class="round-section">
                         <div class="round-header">Round ${round.number} - ${round.format.replace(/-/g, ' ').toUpperCase()}</div>
-                        <div class="matches-grid">
+                        <div class="round-info">
+                            <div class="round-info-item">
+                                <span class="round-info-label">Matches:</span>
+                                <span class="round-info-value">${round.matches.length}</span>
+                            </div>
+                            ${round.groups.length > 0 ? `
+                                <div class="round-info-item">
+                                    <span class="round-info-label">Groups:</span>
+                                    <span class="round-info-value">${round.groups.length}</span>
+                                </div>
+                            ` : ''}
+                            <div class="round-info-item">
+                                <span class="round-info-label">Format:</span>
+                                <span class="round-info-value">${round.format.replace(/-/g, ' ')}</span>
+                            </div>
+                        </div>
                 `;
 
-                round.matches.forEach((match, matchIdx) => {
+                // Display groups if they exist
+                if (round.groups.length > 0) {
+                    html += displayGroupStage(round);
+                } else if (round.format === 'single-elimination' || round.format === 'double-elimination') {
+                    html += displayKnockoutBracket(round);
+                } else {
+                    html += displayMatches(round);
+                }
+
+                html += `
+                    </div>
+                `;
+            });
+
+            html += `
+                </div>
+            `;
+
+            content.innerHTML = html;
+        }
+
+        function displayGroupStage(round) {
+            let html = `<div class="groups-container">`;
+
+            round.groups.forEach((group, groupIdx) => {
+                const groupStandings = group.teams
+                    .map(team => {
+                        const stats = tournament.standings[team];
+                        const groupMatches = group.matches.filter(m => 
+                            (m.team1 === team || m.team2 === team) && m.winner !== null
+                        );
+                        let points = 0, wins = 0, losses = 0, matches = 0;
+                        
+                        groupMatches.forEach(match => {
+                            matches++;
+                            if (match.winner === team) {
+                                wins++;
+                                points += 2;
+                            } else if (match.winner === 'tie') {
+                                points += 1;
+                            } else {
+                                losses++;
+                            }
+                        });
+
+                        return { team, points, wins, losses, matches };
+                    })
+                    .sort((a, b) => {
+                        if (b.points !== a.points) return b.points - a.points;
+                        if (b.wins !== a.wins) return b.wins - a.wins;
+                        return 0;
+                    });
+
+                html += `
+                    <div class="group-card">
+                        <div class="group-header">
+                            ${group.name}
+                            <span class="group-badge">${group.teams.length} Teams</span>
+                        </div>
+                        <table class="group-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team</th>
+                                    <th>M</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                groupStandings.forEach((entry, idx) => {
+                    const rankClass = idx < 3 ? `rank-${idx + 1}` : '';
+                    html += `
+                        <tr>
+                            <td>
+                                ${idx < 3 ? `<span class="rank-badge ${rankClass}">${idx + 1}</span>` : `<strong>${idx + 1}</strong>`}
+                            </td>
+                            <td><strong>${entry.team}</strong></td>
+                            <td>${entry.matches}</td>
+                            <td style="color: #51cf66; font-weight: 600;">${entry.wins}</td>
+                            <td style="color: #ff6b6b; font-weight: 600;">${entry.losses}</td>
+                            <td style="color: #667eea; font-weight: 700;">${entry.points}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 15px;">
+                            <strong style="display: block; margin-bottom: 10px; color: #333;">Matches:</strong>
+                `;
+
+                group.matches.forEach(match => {
                     const isComplete = match.winner !== null;
                     const team1Class = match.winner === match.team1 ? 'winner' : '';
                     const team2Class = match.winner === match.team2 ? 'winner' : '';
 
                     html += `
-                        <div class="match-card ${isComplete ? 'complete' : ''}">
-                            <div class="match-number">Match ${match.number}</div>
+                        <div class="match-card" style="padding: 12px;">
                             <div class="match-team team1 ${team1Class}">
                                 <span>${match.team1}</span>
                                 ${match.score1 !== null ? `<span class="match-score">${match.score1}</span>` : ''}
@@ -915,10 +1268,10 @@
                                 <span>${match.team2}</span>
                                 ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
                             </div>
-                            <div class="score-input-group">
-                                <input type="number" id="score1_${round.number}_${match.number}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
-                                <input type="number" id="score2_${round.number}_${match.number}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
-                                <button class="btn-set-score" onclick="setMatchScore(${round.number}, ${match.number})">Set</button>
+                            <div class="score-input-group" style="margin-top: 10px;">
+                                <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
+                                <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
+                                <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
                             </div>
                         </div>
                     `;
@@ -930,11 +1283,108 @@
                 `;
             });
 
+            html += `</div>`;
+            return html;
+        }
+
+        function displayKnockoutBracket(round) {
+            let html = `
+                <div class="bracket-container">
+                    <div class="bracket">
+                        <div class="bracket-round">
+                            <div class="bracket-round-label">Round of ${round.matches.length * 2}</div>
+            `;
+
+            round.matches.forEach((match, idx) => {
+                const isComplete = match.winner !== null;
+                const isBye = match.team2 === '(BYE)' || match.team1 === '(BYE)';
+                
+                html += `
+                    <div class="bracket-match ${isComplete ? 'complete' : ''} ${isBye ? 'bye' : ''}">
+                        <div class="bracket-match-team ${match.winner === match.team1 ? 'winner' : ''}">
+                            <span>${match.team1}</span>
+                            ${match.score1 !== null ? `<span class="bracket-score">${match.score1}</span>` : ''}
+                        </div>
+                        <div class="bracket-match-team ${match.winner === match.team2 ? 'winner' : ''}">
+                            <span>${match.team2}</span>
+                            ${match.score2 !== null ? `<span class="bracket-score">${match.score2}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+
+                <div class="matches-grid">
+            `;
+
+            round.matches.forEach(match => {
+                const isComplete = match.winner !== null;
+                const team1Class = match.winner === match.team1 ? 'winner' : '';
+                const team2Class = match.winner === match.team2 ? 'winner' : '';
+
+                html += `
+                    <div class="match-card ${isComplete ? 'complete' : ''}">
+                        <div class="match-number">Match ${match.number}</div>
+                        <div class="match-team team1 ${team1Class}">
+                            <span>${match.team1}</span>
+                            ${match.score1 !== null ? `<span class="match-score">${match.score1}</span>` : ''}
+                        </div>
+                        <div class="match-vs">vs</div>
+                        <div class="match-team ${team2Class}">
+                            <span>${match.team2}</span>
+                            ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
+                        </div>
+                        <div class="score-input-group">
+                            <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
+                            <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
+                            <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
+                        </div>
+                    </div>
+                `;
+            });
+
             html += `
                 </div>
             `;
 
-            content.innerHTML = html;
+            return html;
+        }
+
+        function displayMatches(round) {
+            let html = `<div class="matches-grid">`;
+
+            round.matches.forEach((match, matchIdx) => {
+                const isComplete = match.winner !== null;
+                const team1Class = match.winner === match.team1 ? 'winner' : '';
+                const team2Class = match.winner === match.team2 ? 'winner' : '';
+
+                html += `
+                    <div class="match-card ${isComplete ? 'complete' : ''}">
+                        <div class="match-number">Match ${match.number}</div>
+                        <div class="match-team team1 ${team1Class}">
+                            <span>${match.team1}</span>
+                            ${match.score1 !== null ? `<span class="match-score">${match.score1}</span>` : ''}
+                        </div>
+                        <div class="match-vs">vs</div>
+                        <div class="match-team ${team2Class}">
+                            <span>${match.team2}</span>
+                            ${match.score2 !== null ? `<span class="match-score">${match.score2}</span>` : ''}
+                        </div>
+                        <div class="score-input-group">
+                            <input type="number" id="score1_${match.id}" placeholder="Team 1" min="0" value="${match.score1 !== null ? match.score1 : ''}">
+                            <input type="number" id="score2_${match.id}" placeholder="Team 2" min="0" value="${match.score2 !== null ? match.score2 : ''}">
+                            <button class="btn-set-score" onclick="setMatchScore(${round.number}, '${match.id}')">Set</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
         }
 
         function displayStandings() {
@@ -955,6 +1405,7 @@
                                 <tr>
                                     <th style="width: 50px;">Rank</th>
                                     <th>Team</th>
+                                    <th style="width: 60px;">Group</th>
                                     <th style="width: 80px;">Matches</th>
                                     <th style="width: 60px;">Wins</th>
                                     <th style="width: 80px;">Losses</th>
@@ -972,6 +1423,7 @@
                                 ${idx < 3 ? `<span class="rank-badge ${rankClass}">${idx + 1}</span>` : `<strong>${idx + 1}</strong>`}
                             </td>
                             <td><strong>${entry.team}</strong></td>
+                            <td>${entry.group || '-'}</td>
                             <td>${entry.matches}</td>
                             <td style="color: #51cf66; font-weight: 600;">${entry.wins}</td>
                             <td style="color: #ff6b6b; font-weight: 600;">${entry.losses}</td>
@@ -992,9 +1444,9 @@
             document.getElementById('standingsContent').innerHTML = html;
         }
 
-        function setMatchScore(roundNum, matchNum) {
-            const score1Input = document.getElementById(`score1_${roundNum}_${matchNum}`);
-            const score2Input = document.getElementById(`score2_${roundNum}_${matchNum}`);
+        function setMatchScore(roundNum, matchId) {
+            const score1Input = document.getElementById(`score1_${matchId}`);
+            const score2Input = document.getElementById(`score2_${matchId}`);
 
             const score1 = score1Input.value;
             const score2 = score2Input.value;
@@ -1004,7 +1456,7 @@
                 return;
             }
 
-            tournament.setScore(roundNum, matchNum, score1, score2);
+            tournament.setScore(roundNum, matchId, score1, score2);
             displayTournament();
             displayStandings();
             showMessage(`Match scores updated!`, 'success');
